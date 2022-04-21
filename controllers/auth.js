@@ -126,7 +126,7 @@ exports.signin = async (req, res) =>{
 exports.signwith = async (req, res) =>{
   
     const {fullName, email, password} = req.body;
-    
+    console.log(req.body)
     const user = await Users.findOne({ where: { email: email } })
 
     if (user) {
@@ -136,7 +136,7 @@ exports.signwith = async (req, res) =>{
     else{
         
         await Users.create({
-            fullName:lastname,		
+            full_name:fullName,		
             email:email,
             password: password,
         })

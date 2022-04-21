@@ -5,7 +5,7 @@ const  {authUser} = require('../middleware/auth/authUsers')
 
 
 const authRouter = require('./auth')
-const categoryRouter = require('./categories');
+const categoryRouter = require('./strains');
 const transactionRouter = require('./transactions')
 const userRouter = require('./users');
 
@@ -15,7 +15,7 @@ server.get('/', (req , res)=>{
 });
  
 server.use('/auth', authRouter)
-server.use("/categories", categoryRouter)
+server.use("/strains", categoryRouter)
 server.use("/transactions", authUser,  transactionRouter)
 server.use("/user", userRouter)
 

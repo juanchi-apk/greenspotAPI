@@ -6,7 +6,7 @@ const {sequelize}	 = require('./database/index');
 const routes = require("./routes/index");
 const cors = require("cors");
 const morgan = require("morgan");
-const { fixedCategories } = require('./database/categorydata');
+const { defaultStrains } = require('./database/defaultStrains');
 
 
 
@@ -31,17 +31,49 @@ app.use("/", routes);
 
 
 
-async function catCreator(catlist){
-	let catLength = catlist.length;
-
-	while(catLength>0){
-		const existingcategories = await sequelize.models.Categories.findAll({where:{cat_name: catlist[catLength-1]}})
-		if(existingcategories.length==0){
-				 await sequelize.models.Categories.create({
-					cat_name : catlist[catLength-1]
+async function strainCreator(strainList){
+let strainLength = strainList.length;
+	
+	while(strainLength>0){
+		let strainData = strainList[strainLength-1]
+		let { strain_id,
+			strain_name,
+			origin_genetic,
+			sativity,
+			thc,
+			 minProdInt_bank,
+			 maxProdInt_bank,
+			 minProdExt_bank,
+			 maxProdExt_bank,
+			 type,
+			days_complete_cycle,
+			effect,
+			flavour
+			
+		} =  strainData;
+		
+		console.log(strain_name)
+		const savedStrains = await sequelize.models.Strains.findAll(
+			{where:{strain_name: strain_name}})
+		if(savedStrains.length==0){
+				 await sequelize.models.Strains.create({
+					strain_id,
+					strain_name,
+					origin_genetic,
+					sativity,
+					thc,
+					 minProdInt_bank,
+					 maxProdInt_bank,
+					 minProdExt_bank,
+					 maxProdExt_bank,
+					 type,
+					days_complete_cycle,
+					effect,
+					flavour : JSON.stringify(flavour)
+			
 			})
-			}
-	catLength--;
+			} 
+			strainLength--;
 	}
 
 }
@@ -53,7 +85,7 @@ sequelize
 	//.sync({force : true}) 	
 	.sync()
 	.then(() => {
-		catCreator(fixedCategories)
+		strainCreator(defaultStrains)
 		app.listen(process.env.PORT);
 		//pending set timezone
 		console.log("App listening on port " + process.env.PORT);

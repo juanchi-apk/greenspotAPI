@@ -54,8 +54,6 @@ const { Users, Transactions, Categories} = sequelize.models;
 
 Users.hasMany(Transactions);
 Transactions.belongsTo(Users);
-Categories.hasMany(Transactions);
-Transactions.belongsTo(Categories);
 
 
 
