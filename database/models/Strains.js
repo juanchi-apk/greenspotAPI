@@ -54,7 +54,7 @@ const Strains = (sequelizedb)=>{
             allowNull: true,
 		},
 		days_complete_cycle: {
-			type: DataTypes.STRING,
+			type: DataTypes.INTEGER,
             allowNull: false,
 		},
 		effect:{

@@ -1,0 +1,4 @@
+exports.defaultLights = [
+ "Sun",
+ "Indoor",
+]

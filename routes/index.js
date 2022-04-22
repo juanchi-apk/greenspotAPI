@@ -8,6 +8,7 @@ const authRouter = require('./auth')
 const categoryRouter = require('./strains');
 const transactionRouter = require('./transactions')
 const userRouter = require('./users');
+const defaultOptionsRouter = require('./defaultOptions')
 
 
 server.get('/', (req , res)=>{
@@ -15,6 +16,7 @@ server.get('/', (req , res)=>{
 });
  
 server.use('/auth', authRouter)
+server.use("/defaultOptions", defaultOptionsRouter)
 server.use("/strains", categoryRouter)
 server.use("/transactions", authUser,  transactionRouter)
 server.use("/user", userRouter)
